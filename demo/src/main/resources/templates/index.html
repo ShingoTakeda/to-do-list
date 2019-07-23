@@ -13,14 +13,34 @@
 </head>
 
 <body>
+  <!-- ヘッダー -->
   <div class="header">
-    <div class="header-logo">TO DO リスト</div>
-    <div class="header-list">検索</div>
+    <div class="header-title">
+      <h1>TO DO リスト</h1>
+    </div>
+    <div class="header-search">
+      <a href=""> 検索 </a>
+    </div>
   </div>
-  <div class="main"></div>
 
-  <h1>To do list</h1>
-  <p>index page  </p>
+  <!-- メイン -->
+  <div class="main">
+    <br>
+    <div class = "new-todo">
+      <p>新しいToDoを作成する</p>
+      ToDo名
+      <input placeholder="ToDo名を入力してください">
+      <br>
+      期限
+      <input placeholder="期限を入力してください" class="period"　>
+      <button type="submit" class="add-todo">ToDoの追加</button>
+      
+    </div>
+    <div class="remain-todo"></div>
+
+  </div>
+
+
 
 </body>
 </html>

@@ -6,17 +6,66 @@
 }
 
 
+/*　ヘッダー　*/
 .header {
-  background-color: #f7f2b4;
-  height: 90px;
+  background-color: #00008B;
+  height: 100px;
 }
 
-/* header-logoの文字の大きさを36px、floatプロパティをleftにしてください */
-.header-logo {
-  font-size:36px;
+.header-title {
+  font-size:20px;
+  color:#FFFFFF;
   float:left;
+  padding-left:40px;
 }
-.header-list {
+
+.header-search {
   font-size:36px;
+  color: #32CD32;
   float:right;
+  padding-top: 20px;
+  padding-right: 40px;
+}
+
+
+/*　メイン　*/
+.main {
+  height: 900px;
+  background-color:#DCDCDC;
+}
+
+.new-todo {
+  background-color: #E6E6FA;
+  border:1px solid #000000	;
+  margin-left:40px;
+  width:1200px;
+  padding: 30px;
+}
+
+.new-todo p {
+  padding-left: 20px;
+}
+
+input, textarea {
+  width:700px;
+  margin-top:8px;
+  margin-bottom:10px;
+  padding:5px;
+  font-size:18px;
+  border: 1px solid #000000;
+}
+.period {
+  width:700px;
+  margin-top:8px;
+  margin-bottom:10px;
+  margin-left: 25px;
+  padding:5px;
+  font-size:18px;
+  border: 1px solid #000000;
+}
+
+.add-todo {
+  font-size:18px;
+  float:right;
+  width:180px;
 }
