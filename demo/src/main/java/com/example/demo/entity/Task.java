@@ -1,6 +1,10 @@
 package com.example.demo.entity;
 
+import com.example.demo.form.TaskForm;
+
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -55,5 +59,22 @@ public class Task {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public static Task createTask(TaskForm taskForm){
+        Date now = new Date();
+        Task task = new Task();
+        task.setName(taskForm.getName());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = dateFormat.parse(taskForm.getDate());
+            task.setDate(date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        task.setCreatedAt(now);
+        task.setDone(false);
+
+        return task;
     }
 }
