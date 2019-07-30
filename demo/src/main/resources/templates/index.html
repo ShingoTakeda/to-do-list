@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
   <meta charset="UTF-8">
   <title>TO DO LIST</title> <!--ページタイトル タブに表示される-->
@@ -21,6 +21,11 @@
     <div class="header-search">
       <a href=""> 検索 </a>
     </div>
+    <h3 class="todo-message" th:text="|ToDoが${tasks.size()}件見つかりました|"></h3>
+    <tr th:each="task : ${tasks}">
+      <td th:text="${task.getTaskId()}"></td>
+      <td th:text="${task.getName()}"></td><br>
+    </tr>
   </div>
 
   <!-- メイン -->
