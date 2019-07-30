@@ -8,14 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-@Table(name = "tasks")
+@Table(name = "tasks") // DB:todo_list のテーブル名と一致する
 public class Task {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long taskId;
-
     private String name;
     private Date date;
     private Date createdAt;
@@ -24,7 +22,6 @@ public class Task {
     public Long getTaskId() {
         return taskId;
     }
-
     public void setTaskId(Long taskId) {
         this.taskId = taskId;
     }
@@ -32,7 +29,6 @@ public class Task {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -40,7 +36,6 @@ public class Task {
     public Date getDate() {
         return date;
     }
-
     public void setDate(Date date) {
         this.date = date;
     }
@@ -48,7 +43,6 @@ public class Task {
     public Date getCreatedAt() {
         return createdAt;
     }
-
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
@@ -56,10 +50,10 @@ public class Task {
     public boolean isDone() {
         return done;
     }
-
     public void setDone(boolean done) {
         this.done = done;
     }
+
 
     public static Task createTask(TaskForm taskForm){
         Date now = new Date();

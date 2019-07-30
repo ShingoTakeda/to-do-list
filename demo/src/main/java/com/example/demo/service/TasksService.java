@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class TasksService {
+
     @Autowired
     TasksRepository tasksRepository;
 
@@ -21,9 +22,6 @@ public class TasksService {
         Task task = Task.createTask(taskForm);
         tasksRepository.save(task);
     }
-
-
-
 
 
 }

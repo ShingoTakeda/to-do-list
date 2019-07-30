@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <title>TO DO LIST</title> <!--ページタイトル タブに表示される-->
-  <link href="stylesheet.css" rel="stylesheet"/>
+  <link th:href="@{/css/stylesheet.css}" rel="stylesheet"></link>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="1671.5">
+<!--  <meta http-equiv="Content-Style-Type" content="text/css">-->
+<!--  <meta name="Generator" content="Cocoa HTML Writer">-->
+<!--  <meta name="CocoaVersion" content="1671.5">-->
   <style type="text/css">
   </style>
 </head>
@@ -23,27 +23,6 @@
     <div class="header-search">
       <a href=""> 検索 </a>
     </div>
-
-    <h3 class="todo-message" th:text="|ToDoが${tasks.size()}件見つかりました|"></h3>
-    <tr th:each="task : ${tasks}">
-      <td th:text="${task.getTaskId()}"></td>
-      <td th:text="${task.getName()}"></td><br>
-    </tr>
-
-    <form action="/task" method="post">
-      <div>
-        <label for="name">名前</label>
-        <input type="text" id="name" name="name">
-      </div>
-      <div>
-        <label for="date">期日</label>
-        <input type="date" id="date" name="date">
-      </div>
-      <input type="submit" value="送信する">
-    </form>
-
-
-
   </div>
 
 
@@ -52,14 +31,32 @@
     <br>
     <div class = "new-todo">
       <p>新しいToDoを作成する</p>
-      ToDo名
-      <input placeholder="ToDo名を入力してください">
-      <br>
-      期限
-      <input placeholder="期限を入力してください" class="period"　>
-      <button type="submit" class="add-todo">ToDoの追加</button>
+      <form action="/task" method="post">
+        <div>
+          <label for="name">ToDo名</label>
+          <input type="text" id="name" name="name" placeholder="ToDo名を入力してください">
+          <br>
+          <label for="date">期限</label>
+          <input type="date" id="date" name="date" class="period">
+          <br>
+          <input type="submit" value="ToDoの追加"　class="add-todo">
+        </div>
+      </form>
     </div>
-    <div class="remain-todo"></div>
+
+    <div class="remain-todo">
+      <h3 class="todo-message" th:text="|ToDoが${taskDtos.size()}件見つかりました|"></h3>
+
+      <tr th:each="taskDto : ${taskDtos}">
+<!--        <td th:text="${task.getTaskId()}"></td>-->
+        <td th:text="${taskDto.getName()}"></td><br>
+        期限：
+        <td th:text="${taskDto.getDate()}"></td><br>
+        作成日：
+        <td th:text="${taskDto.getCreatedAt()}"></td><br>
+      </tr>
+    </div>
+
   </div>
 
 </body>
