@@ -9,9 +9,12 @@ public class TaskDto {
     private String name;
     private String date;
     private String createdAt;
+    private boolean done;
+
 
     public TaskDto(Task task) {
         this.name = task.getName();
+        this.done = task.isDone();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         this.date = dateFormat.format(task.getDate());
@@ -40,5 +43,13 @@ public class TaskDto {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 }

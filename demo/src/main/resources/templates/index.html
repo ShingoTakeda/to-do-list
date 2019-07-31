@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>TO DO LIST</title> <!--ページタイトル タブに表示される-->
-  <link th:href="@{/css/stylesheet.css}" rel="stylesheet"></link>
+  <link th:href="@{/css/stylesheet.css}" rel="stylesheet">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!--  <meta http-equiv="Content-Style-Type" content="text/css">-->
 <!--  <meta name="Generator" content="Cocoa HTML Writer">-->
@@ -18,10 +18,10 @@
   <!-- ヘッダー -->
   <div class="header">
     <div class="header-title">
-      <h1>TO DO リスト</h1>
+      <h1>TODOリスト</h1>
     </div>
     <div class="header-search">
-      <a href=""> 検索 </a>
+      <a href="/search"> 検索 </a>
     </div>
   </div>
 
@@ -47,13 +47,15 @@
     <div class="remain-todo">
       <h3 class="todo-message" th:text="|ToDoが${taskDtos.size()}件見つかりました|"></h3>
 
-      <tr th:each="taskDto : ${taskDtos}">
-<!--        <td th:text="${task.getTaskId()}"></td>-->
-        <td th:text="${taskDto.getName()}"></td><br>
+      <tr th:each="taskDto : ${taskDtos}"> <!--繰り返し処理-->
+        ToDo名：
+        <td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->
         期限：
         <td th:text="${taskDto.getDate()}"></td><br>
         作成日：
         <td th:text="${taskDto.getCreatedAt()}"></td><br>
+        <button th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
+        <button type="submit" onclick="location.href='/edit'" >編集</button><br><br>
       </tr>
     </div>
 

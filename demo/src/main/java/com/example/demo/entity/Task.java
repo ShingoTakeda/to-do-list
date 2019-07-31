@@ -1,26 +1,27 @@
 package com.example.demo.entity;
 
+import com.example.demo.form.IdForm;
 import com.example.demo.form.TaskForm;
 
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 @Entity
 @Table(name = "tasks") // DB:todo_list のテーブル名と一致する
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //IDの自動生成
-    //以下に変数を定義(今回必要なのは「id」「task名」「期限」「作成日」「完了・未完了の状態」)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long taskId;
     private String name;
     private Date date;
     private Date createdAt;
     private boolean done;
 
-    //getterとsetterの設定(cmd+nから選択)
+    // getterとsetterの設定(cmd+nから選択)
     public Long getTaskId() {
         return taskId;
     }
@@ -28,9 +29,7 @@ public class Task {
         this.taskId = taskId;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
     public void setName(String name) {
         this.name = name;
     }
@@ -73,4 +72,9 @@ public class Task {
 
         return task;
     }
+
+   public void updateDone() {
+        this.setDone(!this.isDone());
+   }
+
 }

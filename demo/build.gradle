@@ -1,6 +1,6 @@
 plugins {
 	id 'org.springframework.boot' version '2.1.6.RELEASE'
-	id 'java' //javaをbuildするために必要
+	id 'java' // javaをbuildするために必要
 }
 
 apply plugin: 'io.spring.dependency-management'
