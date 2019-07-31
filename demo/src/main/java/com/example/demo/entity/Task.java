@@ -12,13 +12,15 @@ import java.util.Date;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //IDの自動生成
+    //以下に変数を定義(今回必要なのは「id」「task名」「期限」「作成日」「完了・未完了の状態」)
     private Long taskId;
     private String name;
     private Date date;
     private Date createdAt;
     private boolean done;
 
+    //getterとsetterの設定(cmd+nから選択)
     public Long getTaskId() {
         return taskId;
     }
