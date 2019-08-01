@@ -1,7 +1,8 @@
 package com.example.demo.entity;
 
-import com.example.demo.form.IdForm;
+import com.example.demo.dto.TaskDto;
 import com.example.demo.form.TaskForm;
+import com.example.demo.service.TasksService;
 
 import javax.persistence.*;
 import java.text.ParseException;
@@ -73,8 +74,25 @@ public class Task {
         return task;
     }
 
+   /*現在の状態(完了・未完了)を反対にする*/
    public void updateDone() {
         this.setDone(!this.isDone());
    }
+
+
+   /*現在の名前と期限を変更*/
+    public static Task editToDo(TaskForm taskForm, Task task) {
+        task.setName(taskForm.getName());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = dateFormat.parse(taskForm.getDate());
+            task.setDate(date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return task;
+    }
+
 
 }

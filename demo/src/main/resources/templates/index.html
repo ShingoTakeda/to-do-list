@@ -44,10 +44,10 @@
       </form>
     </div>
 
-    <div class="remain-todo">
+    <div class="remain-todos">
       <h3 class="todo-message" th:text="|ToDoが${taskDtos.size()}件見つかりました|"></h3>
 
-      <tr th:each="taskDto : ${taskDtos}"> <!--繰り返し処理-->
+      <tr th:each="taskDto : ${taskDtos}" class="remain-todo"> <!--繰り返し処理-->
         ToDo名：
         <td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->
         期限：

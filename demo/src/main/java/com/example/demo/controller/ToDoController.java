@@ -49,28 +49,30 @@ public class ToDoController {
         return "edit";
     }
 
+    /*idを選択し、選択されたidのタスクの完了・未完了状態を更新する*/
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public String updateStatus(@ModelAttribute IdForm idForm, BindingResult result) {
         Optional<Task> selectTask = tasksService.getSelectTask(idForm.getTaskId()); //optional型であることに注意
-        if (selectTask.isPresent()) {
-            Task task = selectTask.get();
+        if (selectTask.isPresent()) {    //値の存在をチェック
+            Task task = selectTask.get();   //値を取得するgetメソッドは、値が存在していない場合実行時例外を投げる
             tasksService.update(task);
             return task.getName();
         }
-        return "ok";
+        return "error";
     }
 
+    /*idを選択し、選択されたidのタスクの名前・期限を更新する*/
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
-    public String editToDo(@ModelAttribute IdForm idForm, BindingResult result) {
+    public String editToDo(@ModelAttribute IdForm idForm,TaskForm taskForm, BindingResult result) {
         Optional<Task> selectTask = tasksService.getSelectTask(idForm.getTaskId()); //optional型であることに注意
         if (selectTask.isPresent()) {
             Task task = selectTask.get();
-
+            tasksService.edit(taskForm,task);
             return task.getName();
         }
-        return "ok";
+        return "error";
     }
 
 

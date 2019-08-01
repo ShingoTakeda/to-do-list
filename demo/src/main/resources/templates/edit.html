@@ -18,7 +18,23 @@
         </div>
     </div>
 
-    <h2>編集画面です</h2>
+    <!-- メイン -->
+    <div class="main">
+        <h2>編集画面です</h2>
+        <div class = "new-todo">
+            <p>ToDoの内容を変更します</p>
+            <form action="/edit" method="post">
+                <div>
+                    <label for="name">ToDo名</label>
+                    <input type="text" id="name" name="name" placeholder="ToDo名を入力してください">
+                    <br>
+                    <label for="date">期限</label>
+                    <input type="date" id="date" name="date" class="period">
+                    <br>
+                    <input type="submit" value="更新"　class="add-todo">
+                </div>
+            </form>
+        </div>
 
 </body>
 </html>
