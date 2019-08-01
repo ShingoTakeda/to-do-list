@@ -30,10 +30,11 @@
 
 /*　メイン　*/
 .main {
-  height: 900px;
+  min-height:1000px;
   background-color:#DCDCDC;
 }
 
+/*新規ToDo*/
 .new-todo {
   background-color: #E6E6FA;
   border:1px solid #000000	;
@@ -42,47 +43,62 @@
   padding: 30px;
 }
 
-.new-todo p {
-  padding-left: 20px;
-}
-
-input, textarea {
+.form {
   width:600px;
-  margin-top:8px;
-  margin-bottom:10px;
+  margin-right:10px;
   padding:5px;
   font-size:18px;
   border: 1px solid #000000;
 }
 
-.add {
-    font-size:18px;
-    border: 1px solid #000000;
-    width:200px;
-}
-
-
 .period {
   width:200px;
-  margin-top:8px;
-  margin-bottom:10px;
-  margin-left: 25px;
+  /*margin-top:8px;*/
   padding:5px;
   font-size:18px;
   border: 1px solid #000000;
 }
 
 .add-todo {
-  font-size:18px;
+  background-color:#c0c0c0;
+  font-size:25px;
+  border: 1px solid #c0c0c0;
+  width:200px;
   float:right;
-  width:80px;
 }
 
-.remain-todo {
-    font-size:18px;
+
+/**/
+.todo-message {
+    color:#ff0000;
+}
+
+.remain-todos {
+    font-size:15px;
+    width:1200px;
+    background-color:#ffffff;
     margin-top:8px;
-    margin-bottom:10px;
-    margin-left: 25px;
+    margin-left: 40px;
+    padding-left:50px;
     border: 1px solid #000000;
 
+}
+
+.comp {
+    background-color:#6495ed;
+}
+
+.not-comp {
+    background-color:#cd5c5c;
+}
+
+.edit {
+    background-color:#90ee90;
+}
+
+
+/* フッター */
+footer {
+ background-color: #DCDCDC;
+ height: 100px;
 }

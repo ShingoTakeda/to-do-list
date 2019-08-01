@@ -30,16 +30,15 @@
   <div class="main">
     <br>
     <div class = "new-todo">
-      <p>新しいToDoを作成する</p>
+      新しいToDoを作成する<br>
       <form action="/task" method="post">
         <div>
           <label for="name">ToDo名</label>
-          <input type="text" id="name" name="name" placeholder="ToDo名を入力してください">
-          <br>
+          <input type="text" id="name" name="name" placeholder="ToDo名を入力してください" class="form">
           <label for="date">期限</label>
           <input type="date" id="date" name="date" class="period">
-          <br>
-          <input type="submit" value="ToDoの追加"　class="add-todo">
+          <input type="submit" value="ToDoの追加" 　name="name" class="add-todo"><br>
+
         </div>
       </form>
     </div>
@@ -47,19 +46,24 @@
     <div class="remain-todos">
       <h3 class="todo-message" th:text="|ToDoが${taskDtos.size()}件見つかりました|"></h3>
 
-      <tr th:each="taskDto : ${taskDtos}" class="remain-todo"> <!--繰り返し処理-->
+      <tr th:each="taskDto : ${taskDtos}" class="todo"> <!--繰り返し処理-->
         ToDo名：
         <td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->
         期限：
         <td th:text="${taskDto.getDate()}"></td><br>
         作成日：
         <td th:text="${taskDto.getCreatedAt()}"></td><br>
-        <button th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
-        <button type="submit" onclick="location.href='/edit'" >編集</button><br><br>
+        <form action="/update" method="post">
+        <button th:class="${taskDto.isDone()} ? 'comp':'not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
+        </form>
+        <button type="submit" onclick="location.href='/edit'" class="edit">編集</button><br><br>
       </tr>
     </div>
 
   </div>
+
+  <footer>
+  </footer>
 
 </body>
 

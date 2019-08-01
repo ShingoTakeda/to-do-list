@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +22,7 @@ public class ToDoController {
 
     @Autowired TasksService tasksService;
 
+    /*既存のToDoを取得する*/
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
         List<Task> tasks = tasksService.findAll();     // List<データ型>　オブジェクト名 =
@@ -33,21 +31,29 @@ public class ToDoController {
         return "index";
     }
 
+
+    /*新規のToDoを取得する*/
     @RequestMapping(value ="/task", method = RequestMethod.POST)
     public String create(@ModelAttribute TaskForm taskForm, BindingResult result) {  //BindingResultはエラーの有無を検出
         tasksService.create(taskForm);
         return "redirect:/";
     }
 
+
+    /*Top画面から検索画面へ遷移する*/
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search() {
         return "search";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String edit() {
+
+    /*Top画面から編集画面へ遷移する*/
+    @GetMapping(value = "/edit/{taskId}")
+    public String edit(@PathVariable(name = "taskId", required = false) Long taskId, Model model) {
+
         return "edit";
     }
+
 
     /*idを選択し、選択されたidのタスクの完了・未完了状態を更新する*/
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -61,6 +67,7 @@ public class ToDoController {
         }
         return "error";
     }
+
 
     /*idを選択し、選択されたidのタスクの名前・期限を更新する*/
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
