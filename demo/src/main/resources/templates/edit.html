@@ -22,13 +22,15 @@
     <div class="main">
         <div class = "new-todo">
             ToDoの内容を変更します<br>
-            <form action="/edit/{taskId}" method="post">
+            <form action="/edit" method="post">
                 <div>
                     <label for="name">ToDo名</label>
                     <input type="text" id="name" name="name" th:value="${taskDto.getName()}" class="form">
                     <label for="date">期限</label>
                     <input type="date" id="date" name="date" th:value="${taskDto.getDate()}" class="period">
-                    <input type="submit" value="更新"　name="name" class="add-todo"><br>
+                    <label for="taskId">期限</label>
+                    <input type="hidden" id="taskId" name="taskId" th:value="${taskDto.getTaskId()}" class="taskId">
+                    <input type="submit" value="更新" class="add-todo"><br>
                 </div>
             </form>
         </div>

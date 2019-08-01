@@ -56,7 +56,7 @@
         <form action="/update" method="post">
         <button th:class="${taskDto.isDone()} ? 'comp':'not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
         </form>
-        <button type="submit" onclick="location.href='/edit'" class="edit">編集</button><br><br>
+        <button type="submit" th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button><br><br>
       </tr>
     </div>
 

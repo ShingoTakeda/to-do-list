@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 
 public class TaskDto {
 
+    private String taskId;
     private String name;
     private String date;
     private String createdAt;
@@ -13,6 +14,7 @@ public class TaskDto {
 
 
     public TaskDto(Task task) {
+        this.taskId = String.valueOf(task.getTaskId());
         this.name = task.getName();
         this.done = task.isDone();
 
@@ -51,5 +53,13 @@ public class TaskDto {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 }
