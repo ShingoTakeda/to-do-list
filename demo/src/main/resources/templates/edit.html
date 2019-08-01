@@ -20,17 +20,15 @@
 
     <!-- メイン -->
     <div class="main">
-        <h2>編集画面です</h2>
         <div class = "new-todo">
             ToDoの内容を変更します<br>
-            <form action="/edit" method="post">
+            <form action="/edit/{taskId}" method="post">
                 <div>
                     <label for="name">ToDo名</label>
-                    <input type="text" id="name" name="name" placeholder="ToDo名を入力してください" class="form">
+                    <input type="text" id="name" name="name" th:value="${taskDto.getName()}" class="form">
                     <label for="date">期限</label>
-                    <input type="date" id="date" name="date" class="period">
-                    <input type="submit" value="更新"　naem="name" class="add-todo"><br>
-
+                    <input type="date" id="date" name="date" th:value="${taskDto.getDate()}" class="period">
+                    <input type="submit" value="更新"　name="name" class="add-todo"><br>
                 </div>
             </form>
         </div>

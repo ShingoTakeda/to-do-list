@@ -50,8 +50,13 @@ public class ToDoController {
     /*Top画面から編集画面へ遷移する*/
     @GetMapping(value = "/edit/{taskId}")
     public String edit(@PathVariable(name = "taskId", required = false) Long taskId, Model model) {
-
-        return "edit";
+        Optional<Task> selectTask = tasksService.getSelectTask(taskId);
+        if (selectTask.isPresent()) {    //値の存在をチェック
+            TaskDto taskDto = new TaskDto(selectTask.get());   //値を取得するgetメソッドは、値が存在していない場合実行時例外を投げる
+            model.addAttribute("taskDto", taskDto);
+            return "edit";
+        }
+        return "redirect:/";
     }
 
 
