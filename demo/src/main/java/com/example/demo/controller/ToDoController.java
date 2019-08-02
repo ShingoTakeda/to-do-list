@@ -41,10 +41,10 @@ public class ToDoController {
 
 
     /*Top画面から検索画面へ遷移する*/
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search() {
         return "search";
-    }
+    }*/
 
 
     /*Top画面から編集画面へ遷移する*/

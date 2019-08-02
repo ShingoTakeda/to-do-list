@@ -11,6 +11,16 @@
 <!--  <meta name="CocoaVersion" content="1671.5">-->
   <style type="text/css">
   </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript"> <!--これはなくてもよい-->
+  $(function(){
+    var done = $('.done');
+    console.log(done);
+    done.click(function () {
+      alert($(this).data('id'));
+    });
+  });
+  </script>
 </head>
 
 
@@ -53,9 +63,7 @@
         <td th:text="${taskDto.getDate()}"></td><br>
         作成日：
         <td th:text="${taskDto.getCreatedAt()}"></td><br>
-        <form action="/update" method="post">
-        <button th:class="${taskDto.isDone()} ? 'comp':'not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
-        </form>
+        <button th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
         <button type="submit" th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button><br><br>
       </tr>
     </div>
