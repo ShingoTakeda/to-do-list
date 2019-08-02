@@ -12,12 +12,28 @@
   <style type="text/css">
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script type="text/javascript"> <!--これはなくてもよい-->
+  <script type="text/javascript">
   $(function(){
     var done = $('.done');
     console.log(done);
     done.click(function () {
-      alert($(this).data('id'));
+      var target = $(this);
+      $.ajax({
+        url : 'http://localhost:8080/update',
+        type : 'POST',
+        data: {
+          taskId:$(this).data('id')
+        },
+        success:function(msg){
+          if(target.text() ==　'完了') {
+            target.text("未完了");
+            target.css({'background-color':'#cd5c5c'});
+           } else {
+            target.text("完了");
+            target.css({'background-color':'#6495ed'});
+           }
+        }
+       });
     });
   });
   </script>
@@ -48,7 +64,6 @@
           <label for="date">期限</label>
           <input type="date" id="date" name="date" class="period">
           <input type="submit" value="ToDoの追加" 　name="name" class="add-todo"><br>
-
         </div>
       </form>
     </div>

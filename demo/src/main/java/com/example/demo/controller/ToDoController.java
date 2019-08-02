@@ -68,9 +68,8 @@ public class ToDoController {
         if (selectTask.isPresent()) {    //値の存在をチェック
             Task task = selectTask.get();   //値を取得するgetメソッドは、値が存在していない場合実行時例外を投げる
             tasksService.update(task);
-            return task.getName();
         }
-        return "error";
+        return "ok";
     }
 
 
