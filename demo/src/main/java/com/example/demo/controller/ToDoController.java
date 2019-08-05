@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,11 +41,7 @@ public class ToDoController {
     }
 
 
-    /*Top画面から検索画面へ遷移する*/
-   /* @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search() {
-        return "search";
-    }*/
+
 
 
     /*Top画面から編集画面へ遷移する*/
@@ -82,6 +79,20 @@ public class ToDoController {
             tasksService.edit(taskForm,task);
         }
         return "redirect:/";
+    }
+
+
+    /* Top画面から検索画面へ遷移する*/
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search(Optional<String> searchText,Model model) {
+        List<TaskDto> findTaskDtos = new ArrayList<>();
+        if (searchText.isPresent()) {
+            List<Task> findTasks = tasksService.searchTask(searchText.get());     // List<データ型>　オブジェクト名 =
+            findTaskDtos = findTasks.stream().map(task -> new TaskDto(task)).collect(Collectors.toList());
+        }
+
+        model.addAttribute("findTaskDtos", findTaskDtos);
+        return "search";
     }
 
 

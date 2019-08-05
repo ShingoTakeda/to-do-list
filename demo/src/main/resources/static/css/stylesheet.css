@@ -102,3 +102,23 @@ footer {
  background-color: #DCDCDC;
  height: 100px;
 }
+
+.search {
+  width:600px;
+  margin-left:100px;
+  margin-top:20px;
+  padding:5px;
+  font-size:25px;
+  border: 1px solid #000000;
+
+}
+
+.search-button {
+    background-color:#c0c0c0;
+    margin-top:20px;
+    margin-left:20px;
+    font-size:25px;
+    border: 1px solid #c0c0c0;
+    width:200px;
+
+}

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ja">
 <link th:href="@{/css/stylesheet.css}" rel="stylesheet">
@@ -9,21 +8,41 @@
 </head>
 
 <body>
-    <!--  ヘッダー -->
-    <div class="header">
-        <div class="header-title">
-            <h1>TODOリスト</h1>
-        </div>
-        <div class="header-search">
-        </div>
+<!--  ヘッダー -->
+<div class="header">
+    <div class="header-title">
+        <h1>TODOリスト</h1>
     </div>
+</div>
 
-    <h2>検索画面です</h2>
+<!-- メイン -->
+<div class="main">
+    <br>
+        <form action="/search" method="get">
+            <div>
+                <input type="text" id="name" name="searchText" placeholder="検索ワードを入力してください" class="search">
+                <input type="submit" value="検索" 　name="name" class="search-button"><br>
+            </div>
 
 
-    <footer>
-    </footer>
+            <div class="remain-todos">
+                <h3 class="todo-message" th:text="|ToDoが${findTaskDtos.size()}件見つかりました|"></h3>
+
+                <tr th:each="taskDto : ${findTaskDtos}" class="todo"> <!--繰り返し処理-->
+                    ToDo名：
+                    <td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->
+                    期限：
+                    <td th:text="${taskDto.getDate()}"></td><br>
+                    作成日：
+                    <td th:text="${taskDto.getCreatedAt()}"></td><br>
+                    <button th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
+                    <button type="submit" th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button><br><br>
+                </tr>
+            </div>
+        </form>
+</div>
+
+    <footer></footer>
 
 </body>
-
 </html>

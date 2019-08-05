@@ -1,11 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Task;
-import com.example.demo.form.IdForm;
 import com.example.demo.form.TaskForm;
 import com.example.demo.repository.TasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,6 +42,10 @@ public class TasksService {
     public void edit(TaskForm taskForm, Task selectTask) {
         Task task = Task.editToDo(taskForm,selectTask);
         tasksRepository.save(task);
+    }
+
+    public List<Task> searchTask(String searchText){
+        return tasksRepository.findByNameContaining(searchText);
     }
 
 

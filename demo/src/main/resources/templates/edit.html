@@ -5,6 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <title>ToDoの編集</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(function(){
+        $('.header-title').click(function(){
+            alert("ok");
+        });
+     });
+    </script>
+
 </head>
 
 <body>
@@ -20,6 +29,7 @@
 
     <!-- メイン -->
     <div class="main">
+        <br>
         <div class = "new-todo">
             ToDoの内容を変更します<br>
             <form action="/edit" method="post">
@@ -28,15 +38,12 @@
                     <input type="text" id="name" name="name" th:value="${taskDto.getName()}" class="form">
                     <label for="date">期限</label>
                     <input type="date" id="date" name="date" th:value="${taskDto.getDate()}" class="period">
-                    <label for="taskId">期限</label>
                     <input type="hidden" id="taskId" name="taskId" th:value="${taskDto.getTaskId()}" class="taskId">
                     <input type="submit" value="更新" class="add-todo"><br>
                 </div>
             </form>
         </div>
-
-
+    </div>
     <footer></footer>
-
 </body>
 </html>
