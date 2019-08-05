@@ -58,7 +58,7 @@
     </form>
 
     <div class="remain-todos">
-        <h3 class="todo-message" th:text="|ToDoが${findTaskDtos.size()}件見つかりました|"></h3>
+    <h3 class="todo-message" th:text="${findTaskDtos.size() != 0} ? 'ToDoが'+ @{{taskSize}(taskSize=${findTaskDtos.size()})} +'件見つかりました':'対象のToDoは見つかりません'"></h3>
         <tr th:each="taskDto : ${findTaskDtos}" class="todo"> <!--繰り返し処理-->
             ToDo名：
             <td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->

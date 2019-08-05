@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class TasksService {
 
     /*Entityから既存のタスクを抽出*/
     public List<Task> findAll() {     // List<データ型>
-        return tasksRepository.findAll(new Sort(Sort.Direction.DESC,"taskId"));   //select * from tasks;と同じ
+        return tasksRepository.findAll(new Sort(Sort.Direction.DESC,"createdAt"));   //select * from tasks;と同じ
     }
 
     /*入力された新しいタスクを登録*/
@@ -47,7 +48,9 @@ public class TasksService {
     }
 
     public List<Task> searchTask(String searchText){
-        return tasksRepository.findByNameContaining(searchText);
+        List<Task> task = tasksRepository.findByNameContaining(searchText);
+        Collections.reverse(task);
+        return task;
     }
 
 
