@@ -5,6 +5,38 @@
 <head>
     <meta charset="UTF-8">
     <title>ToDoの検索</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        var done = $('.done');
+        console.log(done);
+        done.click(function () {
+            var target = $(this);
+            $.ajax({
+                url : 'http://localhost:8080/update',
+                type : 'POST',
+                data: {
+                taskId:$(this).data('id')
+                },
+                success:function(msg){
+                if(target.text() ==　'完了') {
+                target.text("未完了");
+                target.css({'background-color':'#cd5c5c'});
+                } else {
+                target.text("完了");
+                target.css({'background-color':'#6495ed'});
+                }
+            }
+        });
+        });
+    });
+
+    $(function(){
+        $('.header-title').click(function(){
+            window.location.href = '/';
+        });
+    });
+  </script>
 </head>
 
 <body>
@@ -18,31 +50,30 @@
 <!-- メイン -->
 <div class="main">
     <br>
-        <form action="/search" method="get">
-            <div>
-                <input type="text" id="name" name="searchText" placeholder="検索ワードを入力してください" class="search">
-                <input type="submit" value="検索" 　name="name" class="search-button"><br>
-            </div>
+    <form action="/search" method="get">
+        <div>
+            <input type="text" id="name" name="searchText" placeholder="検索ワードを入力してください" class="search">
+            <input type="submit" value="検索" 　name="name" class="search-button"><br>
+        </div>
+    </form>
 
+    <div class="remain-todos">
+        <h3 class="todo-message" th:text="|ToDoが${findTaskDtos.size()}件見つかりました|"></h3>
+        <tr th:each="taskDto : ${findTaskDtos}" class="todo"> <!--繰り返し処理-->
+            ToDo名：
+            <td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->
+            期限：
+            <td th:text="${taskDto.getDate()}"></td><br>
+            作成日：
+            <td th:text="${taskDto.getCreatedAt()}"></td><br>
+            <button th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
+            <button th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button><br><br>
+        </tr>
+    </div>
 
-            <div class="remain-todos">
-                <h3 class="todo-message" th:text="|ToDoが${findTaskDtos.size()}件見つかりました|"></h3>
-
-                <tr th:each="taskDto : ${findTaskDtos}" class="todo"> <!--繰り返し処理-->
-                    ToDo名：
-                    <td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->
-                    期限：
-                    <td th:text="${taskDto.getDate()}"></td><br>
-                    作成日：
-                    <td th:text="${taskDto.getCreatedAt()}"></td><br>
-                    <button th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
-                    <button type="submit" th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button><br><br>
-                </tr>
-            </div>
-        </form>
 </div>
 
-    <footer></footer>
+<footer></footer>
 
 </body>
 </html>

@@ -6,8 +6,9 @@ import com.example.demo.entity.Task;
 import com.example.demo.form.IdForm;
 import com.example.demo.form.TaskForm;
 import com.example.demo.service.TasksService;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
+import javassist.runtime.Desc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,10 +40,6 @@ public class ToDoController {
         tasksService.create(taskForm);
         return "redirect:/";
     }
-
-
-
-
 
     /*Top画面から編集画面へ遷移する*/
     @GetMapping(value = "/edit/{taskId}")
@@ -82,7 +79,7 @@ public class ToDoController {
     }
 
 
-    /* Top画面から検索画面へ遷移する*/
+    /*検索画面*/
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(Optional<String> searchText,Model model) {
         List<TaskDto> findTaskDtos = new ArrayList<>();
@@ -90,10 +87,7 @@ public class ToDoController {
             List<Task> findTasks = tasksService.searchTask(searchText.get());     // List<データ型>　オブジェクト名 =
             findTaskDtos = findTasks.stream().map(task -> new TaskDto(task)).collect(Collectors.toList());
         }
-
         model.addAttribute("findTaskDtos", findTaskDtos);
         return "search";
     }
-
-
 }

@@ -37,6 +37,10 @@
     });
   });
 
+  $(function(){
+  $('.todo').tablesorter({sortList:[1,0]});
+  });
+
   </script>
 </head>
 
@@ -70,7 +74,7 @@
     </div>
 
     <div class="remain-todos">
-      <h3 class="todo-message" th:text="|ToDoが${taskDtos.size()}件見つかりました|"></h3>
+      <h3 class="todo-message" th:text="|MyToDo ${taskDtos.size()}件|"></h3>
 
       <tr th:each="taskDto : ${taskDtos}" class="todo"> <!--繰り返し処理-->
         ToDo名：
@@ -80,7 +84,7 @@
         作成日：
         <td th:text="${taskDto.getCreatedAt()}"></td><br>
         <button th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
-        <button type="submit" th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button><br><br>
+        <button th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button><br><br>
       </tr>
     </div>
 
