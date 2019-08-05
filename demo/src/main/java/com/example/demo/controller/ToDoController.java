@@ -85,8 +85,8 @@ public class ToDoController {
         List<TaskDto> findTaskDtos = new ArrayList<>();
         if (searchText.isPresent()) {
             List<Task> findTasks = tasksService.searchTask(searchText.get());     // List<データ型>　オブジェクト名 =
-            findTaskDtos = findTasks.stream().map(task -> new TaskDto(task)).collect(Collectors.toList());
-        }
+            findTaskDtos = findTasks.stream().map(task -> new TaskDto(task)).filter(task -> !task.isDone()).collect(Collectors.toList());
+            }
         model.addAttribute("findTaskDtos", findTaskDtos);
         return "search";
     }
