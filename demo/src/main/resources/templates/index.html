@@ -74,8 +74,7 @@
     </div>
 
     <div class="remain-todos">
-      <h3 class="todo-message" th:text="|MyToDo ${taskDtos.size()}件|"></h3>
-
+      <h3 class="todo-message" th:text="${taskDtos.size() != 0} ? 'MyToDoは'+ @{{taskSize}(taskSize=${taskDtos.size()})} +'件です':'登録されたToDoはございません'"></h3>
       <tr th:each="taskDto : ${taskDtos}" class="todo"> <!--繰り返し処理-->
         ToDo名：
         <td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->

@@ -6,15 +6,14 @@ import com.example.demo.entity.Task;
 import com.example.demo.form.IdForm;
 import com.example.demo.form.TaskForm;
 import com.example.demo.service.TasksService;
-import javassist.runtime.Desc;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,7 +35,10 @@ public class ToDoController {
 
     /*新規のToDoを取得する*/
     @RequestMapping(value ="/task", method = RequestMethod.POST)
-    public String create(@ModelAttribute TaskForm taskForm, BindingResult result) {  //BindingResultはエラーの有無を検出
+    public String create(@ModelAttribute @Validated TaskForm taskForm, BindingResult result) {  //BindingResultはエラーの有無を検出
+        if(result.hasErrors()){
+            return "redirect:/";
+        }
         tasksService.create(taskForm);
         return "redirect:/";
     }
@@ -82,11 +84,11 @@ public class ToDoController {
     /*検索画面*/
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(Optional<String> searchText,Model model) {
-        List<TaskDto> findTaskDtos = new ArrayList<>();
+        List<TaskDto> findTaskDtos = null;
         if (searchText.isPresent()) {
             List<Task> findTasks = tasksService.searchTask(searchText.get());     // List<データ型>　オブジェクト名 =
             findTaskDtos = findTasks.stream().map(task -> new TaskDto(task)).filter(task -> !task.isDone()).collect(Collectors.toList());
-            }
+        }
         model.addAttribute("findTaskDtos", findTaskDtos);
         return "search";
     }

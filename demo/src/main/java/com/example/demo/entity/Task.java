@@ -1,14 +1,11 @@
 package com.example.demo.entity;
 
-import com.example.demo.dto.TaskDto;
 import com.example.demo.form.TaskForm;
-import com.example.demo.service.TasksService;
 
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 
 @Entity
 @Table(name = "tasks") // DB:todo_list のテーブル名と一致する
