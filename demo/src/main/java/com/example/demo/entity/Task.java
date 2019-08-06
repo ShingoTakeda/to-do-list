@@ -54,10 +54,42 @@ public class Task {
     }
 
 
+    public static String htmlEscape(String str){
+        StringBuffer result = new StringBuffer();
+        for(char c : str.toCharArray()) {
+            switch (c) {
+                case '&' :
+                    result.append("&amp;");
+                    break;
+                case '<' :
+                    result.append("&lt;");
+                    break;
+                case '>' :
+                    result.append("&gt;");
+                    break;
+                case '"' :
+                    result.append("&quot;");
+                    break;
+                case '\'' :
+                    result.append("&#39;");
+                    break;
+                case ' ' :
+                    result.append("&nbsp;");
+                    break;
+                default :
+                    result.append(c);
+                    break;
+            }
+        }
+        return result.toString();
+    }
+
+
     public static Task createTask(TaskForm taskForm){
         Date now = new Date();
         Task task = new Task();
-        task.setName(taskForm.getName());
+        String escape = htmlEscape(taskForm.getName());
+        task.setName(escape);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date date = dateFormat.parse(taskForm.getDate());
@@ -79,7 +111,8 @@ public class Task {
 
    /*現在の名前と期限を変更*/
     public static Task editToDo(TaskForm taskForm, Task task) {
-        task.setName(taskForm.getName());
+        String escape = htmlEscape(taskForm.getName());
+        task.setName(escape);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
