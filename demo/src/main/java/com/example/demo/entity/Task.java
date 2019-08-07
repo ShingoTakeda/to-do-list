@@ -54,6 +54,12 @@ public class Task {
     }
 
 
+    /**
+     * 特殊文字のエスケープ
+     *
+     * @param str
+     * @return
+     */
     public static String htmlEscape(String str){
         StringBuffer result = new StringBuffer();
         for(char c : str.toCharArray()) {
@@ -85,6 +91,12 @@ public class Task {
     }
 
 
+    /**
+     * 新規ToDo作成
+     *
+     * @param taskForm　　入力フォーム
+     * @return  Task Entity
+     */
     public static Task createTask(TaskForm taskForm){
         Date now = new Date();
         Task task = new Task();
@@ -99,17 +111,27 @@ public class Task {
         }
         task.setCreatedAt(now);
         task.setDone(false);
-
         return task;
     }
 
-   /*現在の状態(完了・未完了)を反対にする*/
-   public void updateDone() {
+   /**/
+
+    /**
+     *現在の完了・未完了状態を更新(反転)する
+     */
+    public void updateDone() {
         this.setDone(!this.isDone());
-   }
+    }
 
 
-   /*現在の名前と期限を変更*/
+
+    /**
+     * ToDoの名前と期限を変更
+     *
+     * @param taskForm 入力フォーム
+     * @param task　変更したいToDo
+     * @return
+     */
     public static Task editToDo(TaskForm taskForm, Task task) {
         String escape = htmlEscape(taskForm.getName());
         task.setName(escape);
