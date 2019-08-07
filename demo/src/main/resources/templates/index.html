@@ -37,6 +37,12 @@
     });
   });
 
+  $(function(){
+        $('.header-title').click(function(){
+            window.location.href = '/';
+        });
+     });
+
   </script>
 </head>
 
@@ -56,19 +62,29 @@
   <!-- メイン -->
   <div class="main">
     <br>
+    <!--新規ToDo作成-->
     <div class = "new-todo">
       新しいToDoを作成する<br>
-      <form action="/task" method="post">
+      <form th:action="@{/task}" method="post">
         <div>
           <label for="name">ToDo名</label>
           <input type="text" id="name" name="name" placeholder="ToDo名を入力してください" class="form">
           <label for="date">期限</label>
           <input type="date" id="date" name="date" class="period">
-          <input type="submit" value="ToDoの追加" 　name="name" class="add-todo"><br>
+          <input type="submit" value="ToDoの追加" 　name="name" class="add-todo">
+          <div th:each="errors:${allErrors}" class="input-errors">
+            <p th:text="${errors.getDefaultMessage()}"}></p>
+          </div>
+          <div th:each="errors:${errors}" class="input-errors">
+            <p th:text="${errors.getDefaultMessage()}"}></p>
+          </div>
+          <br>
         </div>
       </form>
     </div>
 
+
+    <!--既存のToDo-->
     <div class="remain-todos">
       <h3 class="todo-message" th:text="${taskDtos.size() != 0} ? 'MyToDoは'+ @{{taskSize}(taskSize=${taskDtos.size()})} +'件です':'登録されたToDoはございません'"></h3>
       <tr th:each="taskDto : ${taskDtos}" class="todo"> <!--繰り返し処理-->

@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,12 +37,27 @@ public class ToDoController {
 
     /*新規のToDoを取得する*/
     @RequestMapping(value ="/task", method = RequestMethod.POST)
-    public String create(@ModelAttribute @Validated TaskForm taskForm, BindingResult result) {  //BindingResultはエラーの有無を検出
+    public String create(@ModelAttribute @Validated TaskForm taskForm,BindingResult result, Model model) {  //BindingResultはエラーの有無を検出
         if(result.hasErrors()){
+            List<ObjectError> allErrors = result.getAllErrors();
+            model.addAttribute("allErrors", allErrors);
+            List<Task> tasks = tasksService.findAll();     // List<データ型>　オブジェクト名 =
+            List<TaskDto> taskDtos = tasks.stream().map(task -> new TaskDto(task)).collect(Collectors.toList());
+            model.addAttribute("taskDtos", taskDtos);
+            return "index";
+        } else if (tasksService.checkTaskName(taskForm.getName()).isPresent()){
+            ObjectError sameNameError = new ObjectError("name", "同じ名前のToDoが既に存在しています。");
+            List<ObjectError> errors = new ArrayList<>();
+            errors.add(sameNameError);
+            model.addAttribute("errors", errors);
+            List<Task> tasks = tasksService.findAll();     // List<データ型>　オブジェクト名 =
+            List<TaskDto> taskDtos = tasks.stream().map(task -> new TaskDto(task)).collect(Collectors.toList());
+            model.addAttribute("taskDtos", taskDtos);
+            return "index";
+        } else {
+            tasksService.create(taskForm);
             return "redirect:/";
         }
-        tasksService.create(taskForm);
-        return "redirect:/";
     }
 
     /*Top画面から編集画面へ遷移する*/

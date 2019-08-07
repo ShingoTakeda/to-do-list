@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.regex.Pattern;
 
 @Service  // 業務処理を提供(どんな処理をするか)
 public class TasksService {
@@ -46,11 +45,20 @@ public class TasksService {
         tasksRepository.save(task);
     }
 
+    /*タスク検索*/
     public List<Task> searchTask(String searchText){
         List<Task> task = tasksRepository.findByNameContaining(searchText);
         Collections.reverse(task);
         return task;
     }
+
+    /*同じ名前のタスクがあるか検索*/
+    public Optional<Task> checkTaskName(String searchText){
+
+        return tasksRepository.findByNameEquals(searchText);
+
+    }
+
 
 
 }

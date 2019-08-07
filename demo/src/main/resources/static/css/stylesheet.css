@@ -67,6 +67,9 @@
   float:right;
 }
 
+.input-errors {
+    color:red;
+}
 
 /**/
 .todo-message {
