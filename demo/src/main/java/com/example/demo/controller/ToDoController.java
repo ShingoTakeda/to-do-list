@@ -88,11 +88,26 @@ public class ToDoController {
 
     /*idを選択し、選択されたidのタスクの名前・期限を更新する*/
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editToDo(@ModelAttribute IdForm idForm,TaskForm taskForm, BindingResult result) {
+    public String editToDo(@ModelAttribute IdForm idForm,@Validated TaskForm taskForm, BindingResult result, Model model) {
         Optional<Task> selectTask = tasksService.getSelectTask(idForm.getTaskId()); //optional型であることに注意
         if (selectTask.isPresent()) {
             Task task = selectTask.get();
-            tasksService.edit(taskForm,task);
+            if(result.hasErrors()){
+                List<ObjectError> allErrors = result.getAllErrors();
+                model.addAttribute("allErrors", allErrors);
+                TaskDto taskDto = new TaskDto(selectTask.get());   //値を取得するgetメソッドは、値が存在していない場合実行時例外を投げる
+                model.addAttribute("taskDto", taskDto);
+                return "edit";
+            } else if (tasksService.checkTaskName(taskForm.getName()).isPresent()){
+                ObjectError sameNameError = new ObjectError("name", "同じ名前のToDoが既に存在しています。");
+                List<ObjectError> errors = new ArrayList<>();
+                errors.add(sameNameError);
+                model.addAttribute("errors", errors);
+                TaskDto taskDto = new TaskDto(selectTask.get());   //値を取得するgetメソッドは、値が存在していない場合実行時例外を投げる
+                model.addAttribute("taskDto", taskDto);
+                return "edit";
+            }
+            tasksService.edit(taskForm, task);
         }
         return "redirect:/";
     }

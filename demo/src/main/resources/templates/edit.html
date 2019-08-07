@@ -39,7 +39,14 @@
                     <label for="date">期限</label>
                     <input type="date" id="date" name="date" th:value="${taskDto.getDate()}" class="period">
                     <input type="hidden" id="taskId" name="taskId" th:value="${taskDto.getTaskId()}" class="taskId">
-                    <input type="submit" value="更新" class="add-todo"><br>
+                    <input type="submit" value="更新" class="add-todo">
+                    <div th:each="errors:${allErrors}" class="input-errors">
+                        <p th:text="${errors.getDefaultMessage()}"}></p>
+                    </div>
+                    <div th:each="errors:${errors}" class="input-errors">
+                        <p th:text="${errors.getDefaultMessage()}"}></p>
+                    </div>
+                    <br>
                 </div>
             </form>
         </div>
