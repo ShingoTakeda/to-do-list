@@ -78,7 +78,6 @@
           <div th:each="errors:${errors}" class="input-errors">
             <p th:text="${errors.getDefaultMessage()}"}></p>
           </div>
-          <br>
         </div>
       </form>
     </div>
@@ -87,15 +86,14 @@
     <!--既存のToDo-->
     <div class="remain-todos">
       <h3 class="todo-message" th:text="${taskDtos.size() != 0} ? 'MyToDoは'+ @{{taskSize}(taskSize=${taskDtos.size()})} +'件です':'登録されたToDoはございません'"></h3>
-      <tr th:each="taskDto : ${taskDtos}" class="todo"> <!--繰り返し処理-->
-        ToDo名：
-        <td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->
-        期限：
-        <td th:text="${taskDto.getDate()}"></td><br>
-        作成日：
-        <td th:text="${taskDto.getCreatedAt()}"></td><br>
-        <button th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
-        <button th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button><br><br>
+      <tr th:each="taskDto : ${taskDtos}"> <!--繰り返し処理-->
+        <div class="todo">
+          ToDo名：<td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->
+          期限：<td th:text="${taskDto.getDate()}"></td><br>
+          作成日：<td th:text="${taskDto.getCreatedAt()}"></td>
+          <button align="right" th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button>
+          <button align="right" th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
+        </div>
       </tr>
     </div>
 

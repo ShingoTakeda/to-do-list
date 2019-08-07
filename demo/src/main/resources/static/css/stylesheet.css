@@ -57,6 +57,7 @@
   padding:5px;
   font-size:18px;
   border: 1px solid #000000;
+  text-align:center;
 }
 
 .add-todo {
@@ -74,17 +75,30 @@
 /**/
 .todo-message {
     color:#ff0000;
+    margin-left: 100px;
+
 }
 
-.remain-todos {
+.todo {
     font-size:15px;
-    width:1200px;
+    width:1000px;
     background-color:#ffffff;
-    margin-top:8px;
-    margin-left: 40px;
-    padding-left:50px;
+    margin-bottom:10px;
+    margin-left: 100px;
+    padding-left:100px;
     border: 1px solid #000000;
+    padding-top:15px;
+    padding-bottom:15px;
 
+}
+
+.done {
+    /*float:right;*/
+    font-size:30px;
+    margin-right:100px;
+    margin-left:30px;
+    width:150px;
+    height:60px;
 }
 
 .comp {
@@ -97,6 +111,10 @@
 
 .edit {
     background-color:#90ee90;
+    /*float:right;*/
+    font-size:30px;
+    width:150px;
+    height:60px;
 }
 
 

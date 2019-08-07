@@ -60,16 +60,14 @@
 
     <div class="remain-todos" th:if="${findTaskDtos != null}">
         <h3 class="todo-message" th:text="${findTaskDtos.size() != 0} ? 'ToDoが'+ @{{taskSize}(taskSize=${findTaskDtos.size()})} +'件見つかりました':'対象のToDoは見つかりません'"></h3>
-        <br>
         <tr th:each="taskDto : ${findTaskDtos}" class="todo"> <!--繰り返し処理-->
-            ToDo名：
-            <td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->
-            期限：
-            <td th:text="${taskDto.getDate()}"></td><br>
-            作成日：
-            <td th:text="${taskDto.getCreatedAt()}"></td><br>
-            <button th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
-            <button th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button><br><br>
+            <div class="todo">
+                ToDo名：<td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->
+                期限：<td th:text="${taskDto.getDate()}"></td><br>
+                作成日：<td th:text="${taskDto.getCreatedAt()}"></td>
+                <button th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
+                <button th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button><br>
+            </div>
         </tr>
     </div>
 
