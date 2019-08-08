@@ -14,12 +14,18 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script type="text/javascript">
   $(function(){
+        $('.header-title').click(function(){
+            window.location.href = '/';
+        });
+     });
+
+  $(function(){
     var done = $('.done');
     console.log(done);
     done.click(function () {
       var target = $(this);
       $.ajax({
-        url : 'http://localhost:8080/update',
+        url : 'http://localhost:8080/task',
         type : 'POST',
         data: {
           taskId:$(this).data('id')
@@ -38,10 +44,20 @@
   });
 
   $(function(){
-        $('.header-title').click(function(){
-            window.location.href = '/';
-        });
-     });
+    var add = $('.add-todo');
+    console.log(add);
+    add.click(function () {
+      var target = $(this);
+      $.ajax({
+        url : 'http://localhost:8080/task',
+        type : 'POST',
+        data: {
+          name:$(.form).data('name')
+          date:$(.period).data('date')
+        },
+       });
+    });
+  });
 
   </script>
 </head>
@@ -65,19 +81,18 @@
     <!--新規ToDo作成-->
     <div class = "new-todo">
       新しいToDoを作成する<br>
-      <form th:action="@{/task}" method="post">
-        <div>
-          <label for="name">ToDo名</label>
-          <input type="text" id="name" name="name" placeholder="ToDo名を入力してください" class="form">
-          <label for="date">期限</label>
-          <input type="date" id="date" name="date" class="period">
-          <input type="submit" value="ToDoの追加" 　name="name" class="add-todo">
-          <div th:each="errors:${allErrors}" class="input-errors">
-            <p th:text="${errors.getDefaultMessage()}"}></p>
-          </div>
-          <div th:each="errors:${errors}" class="input-errors">
-            <p th:text="${errors.getDefaultMessage()}"}></p>
-          </div>
+<!--      <form th:action="@{/task}" method="post">-->
+      <form>
+        <label for="name">ToDo名</label>
+        <input type="text" id="name" name="name" placeholder="ToDo名を入力してください" class="form" th:data-name="${taskForm.getName()}">
+        <label for="date">期限</label>
+        <input type="date" id="date" name="date" class="period" th:data-date="${taskForm.getDate()}">
+        <input type="submit" value="ToDoの追加" 　name="name" class="add-todo">
+        <div th:each="errors:${allErrors}" class="input-errors">
+          <p th:text="${errors.getDefaultMessage()}"}></p>
+        </div>
+        <div th:each="errors:${errors}" class="input-errors">
+          <p th:text="${errors.getDefaultMessage()}"}></p>
         </div>
       </form>
     </div>
@@ -85,16 +100,25 @@
 
     <!--既存のToDo-->
     <div class="remain-todos">
-      <h3 class="todo-message" th:text="${taskDtos.size() != 0} ? 'MyToDoは'+ @{{taskSize}(taskSize=${taskDtos.size()})} +'件です':'登録されたToDoはございません'"></h3>
-      <tr th:each="taskDto : ${taskDtos}"> <!--繰り返し処理-->
-        <div class="todo">
-          ToDo名：<td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->
-          期限：<td th:text="${taskDto.getDate()}"></td><br>
-          作成日：<td th:text="${taskDto.getCreatedAt()}"></td>
-          <button align="right" th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button>
-          <button align="right" th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
-        </div>
-      </tr>
+      <h3 class="todo-message-Top" th:text="${taskDtos.size() != 0} ? 'MyToDoは'+ @{{taskSize}(taskSize=${taskDtos.size()})} +'件です':'登録されたToDoはございません'"></h3>
+      <table border="1" align="center">
+        <tr>
+          <th>ToDo名</th>
+          <th>期限</th>
+          <th>作成日</th>
+          <th>編集</th>
+          <th>状態</th>
+        </tr>
+        <tr th:each="taskDto : ${taskDtos}"> <!--繰り返し処理-->
+          <div class="todo">
+            <td th:text="${taskDto.getName()}"></td> <!--ToDo名-->
+            <td th:text="${taskDto.getDate()}"></td>
+            <td th:text="${taskDto.getCreatedAt()}"></td>
+            <td><button align="right" th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button></td>
+            <td><button align="right" th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button></td>
+          </div>
+        </tr>
+      </table>
     </div>
 
   </div>

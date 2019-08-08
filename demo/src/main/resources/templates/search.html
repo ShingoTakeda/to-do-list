@@ -51,29 +51,38 @@
 <!-- メイン -->
 <div class="main">
     <br>
+    <div class="search-form-title">未完了のToDoを検索する</div>
     <form action="/search" method="get">
-        <div>
             <input type="text" id="name" name="searchText" placeholder="検索ワードを入力してください" class="search">
             <input type="submit" value="検索" 　name="name" class="search-button"><br>
-        </div>
     </form>
 
     <div class="remain-todos" th:if="${findTaskDtos != null}">
         <h3 class="todo-message" th:text="${findTaskDtos.size() != 0} ? 'ToDoが'+ @{{taskSize}(taskSize=${findTaskDtos.size()})} +'件見つかりました':'対象のToDoは見つかりません'"></h3>
-        <tr th:each="taskDto : ${findTaskDtos}" class="todo"> <!--繰り返し処理-->
-            <div class="todo">
-                ToDo名：<td th:text="${taskDto.getName()}"></td><br> <!--ToDo名-->
-                期限：<td th:text="${taskDto.getDate()}"></td><br>
-                作成日：<td th:text="${taskDto.getCreatedAt()}"></td>
-                <button th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button>
-                <button th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button><br>
-            </div>
-        </tr>
+        <table border="1" align="center"  th:if="${findTaskDtos.size() !=0}">
+            <tr>
+                <th>ToDo名</th>
+                <th>期限</th>
+                <th>作成日</th>
+                <th>編集</th>
+                <th>状態</th>
+            </tr>
+            <tr th:each="taskDto : ${findTaskDtos}" class="todo"> <!--繰り返し処理-->
+                <div class="todo">
+                    <td th:text="${taskDto.getName()}"></td><!--ToDo名-->
+                    <td th:text="${taskDto.getDate()}"></td>
+                    <td th:text="${taskDto.getCreatedAt()}"></td>
+                    <td><button th:onclick="'location.href = \'' + @{/edit/{taskId}(taskId=${taskDto.getTaskId()})} + '\''" class="edit">編集</button></td>
+                    <td><button th:data-id="${taskDto.getTaskId()}" th:class="${taskDto.isDone()} ? 'done comp':'done not-comp'" th:text="${taskDto.isDone()} ? '完了':'未完了'"></button></td>
+                </div>
+            </tr>
+        </table>
     </div>
 
 </div>
 
-<footer></footer>
+<footer>
+</footer>
 
 </body>
 </html>
