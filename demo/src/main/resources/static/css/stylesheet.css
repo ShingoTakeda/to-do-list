@@ -64,7 +64,17 @@
 .add-todo {
   background-color:#c0c0c0;
   font-size:25px;
-  border: 1px solid #c0c0c0;
+  /*border: 1px solid #c0c0c0;*/
+  height:40px;
+  width:200px;
+  float:right;
+}
+
+.add-todo2 {
+  background-color:#c0c0c0;
+  font-size:25px;
+  /*border: 1px solid #c0c0c0;*/
+  height:40px;
   width:200px;
   float:right;
 }

@@ -72,6 +72,14 @@ public class ToDoController {
         }
     }
 
+    @RequestMapping(value ="/create", method = RequestMethod.POST)
+    @ResponseBody
+    public Task makeToDo(@ModelAttribute @Validated TaskForm taskForm,BindingResult result) {  //BindingResultはエラーの有無を検出
+        return tasksService.create(taskForm);
+    }
+
+
+
 
     /**
      * トップ画面から編集画面へ遷移する
@@ -98,7 +106,6 @@ public class ToDoController {
      *
      * @param idForm 完了・未完了ボタンが押されたToDoのidフォーム
      * @param result　エラー確認結果
-     * @return  エラーがある場合、リダイレクト
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody

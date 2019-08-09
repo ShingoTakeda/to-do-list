@@ -32,9 +32,10 @@ public class TasksService {
      *
      * @param taskForm 入力フォーム
      */
-    public void create(TaskForm taskForm) {
+    public Task create(TaskForm taskForm) {
         Task task = Task.createTask(taskForm);    //staticなので大文字の"T"askから引っ張る
         tasksRepository.save(task);       //postしたら保存をする
+        return task;
     }
 
 
